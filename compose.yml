@@ -1,0 +1,25 @@
+# version: '3.9' # https://docs.docker.com/compose/compose-file/compose-file-v3/
+services:
+  service-nginx-proxy-manager:
+    container_name: service-nginx-proxy-manager
+    image: jc21/nginx-proxy-manager:2.13.5 # https://hub.docker.com/r/jc21/nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    volumes:
+      - volume-nginx-proxy-manager-data:/data
+      - volume-nginx-proxy-manager-ssl:/etc/letsencrypt
+    networks:
+      - network-infra
+
+networks:
+  network-infra:
+    name: network-infra
+
+volumes:
+  volume-nginx-proxy-manager-data:
+    name: volume-nginx-proxy-manager-data
+  volume-nginx-proxy-manager-ssl:
+    name: volume-nginx-proxy-manager-ssl
