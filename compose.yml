@@ -24,6 +24,18 @@ services:
     networks:
       - network-infra
 
+  service-nginx-php1-buka-sh:
+    container_name: service-nginx-php1-buka-sh
+    restart: always
+    image: nginx:latest
+    volumes:
+      - ./config/docker/nginx/nginx.php1.buka.sh.conf:/etc/nginx/conf.d/default.conf
+      - ./projects/php1.buka.sh:/app/php1.buka.sh
+    networks:
+      - network-infra
+    depends_on:
+      - service-php85
+
   service-nginx-api1-buka-sh:
     container_name: service-nginx-api1-buka-sh
     restart: always
@@ -45,6 +57,7 @@ services:
     volumes:
       - ./projects/api.buka.sh:/app/api.buka.sh
       - ./projects/api1.buka.sh:/app/api1.buka.sh
+      - ./projects/php1.buka.sh:/app/php1.buka.sh
     networks:
       - network-infra
     depends_on:
